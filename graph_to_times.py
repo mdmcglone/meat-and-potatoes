@@ -35,16 +35,16 @@ def filter_top_sequences(values: Sequence[int], top_n: int, min_length: int = 1)
 def image_to_graph(
     image_path: str | Path,
     whiteness_threshold: int = 200,  # ~5% below 255
-    bar_threshold: float = 10.0,
+    bar_threshold: float = 8.0,
     top_sequences: int = 9,
     show_plot: bool = False,
     save_raw_plot_path: str | Path | None = None,
     save_filtered_plot_path: str | Path | None = None,
     grayscale_tolerance: int = 10,
     remove_thin_strands: bool = True,
-    smooth_kernel: int = 5,
-    percentile_threshold: float = 90.0,
-    min_run_length: int = 3,
+    smooth_kernel: int = 3,
+    percentile_threshold: float = 75.0,
+    min_run_length: int = 2,
 ) -> List[int]:
     img = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
     if img is None:
@@ -212,15 +212,15 @@ def run_on_screenshot(
     raw_plot_path: Path = Path("screenshots/graph_pixels.png"),
     filtered_plot_path: Path = Path("screenshots/graph.png"),
     whiteness_threshold: int = 200,
-    bar_threshold: float = 10.0,
+    bar_threshold: float = 8.0,
     top_sequences: int = 9,
     half_height: bool = False,
     grayscale_tolerance: int = 10,
     remove_thin_strands: bool = True,
     fixed_height: int | None = 150,
-    smooth_kernel: int = 5,
-    percentile_threshold: float = 90.0,
-    min_run_length: int = 3,
+    smooth_kernel: int = 3,
+    percentile_threshold: float = 75.0,
+    min_run_length: int = 2,
 ) -> List[int]:
     crop_progress_region(
         screenshot_path,

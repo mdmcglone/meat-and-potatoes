@@ -41,7 +41,7 @@ def prepare_video(
     cropped_path: str | Path = "screenshots/screenshot_cropped.png",
     initial_wait_seconds: float = 0.0,
     reveal_wait_seconds: float = 3.0,
-    show_plot: bool = True,
+    show_plot: bool = False,
 ) -> List[TimeRange]:
     adblock = Path(adblock_path) if adblock_path else None
     firefox_bin = Path(firefox_binary) if firefox_binary else None
@@ -110,7 +110,12 @@ def prepare_video(
         driver.save_screenshot(str(screenshot_file))
         crop_progress_region(screenshot_file, cropped_file)
 
-        bar_heights = image_to_graph(cropped_file, show_plot=show_plot)
+        bar_heights = image_to_graph(
+            cropped_file,
+            show_plot=False,  # do not display; just save plots
+            save_raw_plot_path="screenshots/graph_pixels.png",
+            save_filtered_plot_path="screenshots/graph.png",
+        )
         time_ranges = graph_to_times(video_length, bar_heights)
 
         driver.execute_script(
