@@ -1,3 +1,4 @@
 *.DS_Store
 screenshots/*
+screenshots/*
 __pycache__/
